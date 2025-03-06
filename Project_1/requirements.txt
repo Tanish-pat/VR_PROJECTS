@@ -1,0 +1,11 @@
+numpy
+scikit-learn
+matplotlib
+seaborn
+imbalanced-learn
+tensorflow
+opencv-python
+scikit-image
+tqdm
+h5py
+xgboost

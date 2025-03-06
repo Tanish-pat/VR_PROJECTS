@@ -1,0 +1,7 @@
+download the datasets and unzip them here only.
+
+MSFD
+with_mask
+without_mask
+
+keep 3 folders like this only

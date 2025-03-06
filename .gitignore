@@ -1,0 +1,29 @@
+# Ignore virtual environments
+venv/
+env/
+*.venv/
+*/venv/
+*/env/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Git-related files
+.git/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+
+Project_1/dataset/MSFD
+Project_1/dataset/with_mask
+Project_1/dataset/without_mask
+Project_1/src/task1
+Project_1/src/task2
+Project_1/src/binary_classification_task/testing_features/X.npy
+Project_1/src/binary_classification_task/testing_features/y.npy
+Project_1/src/binary_classification_task/enhanced_features/X.npy
+Project_1/src/binary_classification_task/enhanced_features/y.npy
