@@ -5,7 +5,6 @@ from sklearn.metrics import jaccard_score
 import glob
 import os
 import argparse
-
 from tqdm import tqdm
 
 def load_dataset(msfd_path):
@@ -244,12 +243,11 @@ def main():
                        help="Number of samples to visualize")
     args = parser.parse_args()
 
-    # Create results directory
     results_dir = "results"
     os.makedirs(results_dir, exist_ok=True)
 
     try:
-        image_paths, mask_paths = load_dataset("MSFD")
+        image_paths, mask_paths = load_dataset("../../../dataset/MSFD/")
     except Exception as e:
         print(f"Error: {e}")
         return

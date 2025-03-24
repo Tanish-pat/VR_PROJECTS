@@ -30,9 +30,4 @@ Project_1/src/binary_classification_task/testing_features/X.npy
 Project_1/src/binary_classification_task/testing_features/y.npy
 Project_1/src/binary_classification_task/enhanced_features/X.npy
 Project_1/src/binary_classification_task/enhanced_features/y.npy
-
-Mask_Segmentation_C/MSFD
-Mask_Segmentation_C/.DS_Store
-Mask_Segmentation_C/results
-Mask_Segmentation_C/final.py
-Mask_Segmentation_C/Graded_VR Mini Project 1.pdf
+Project_1/src/Segmentation_Task/C_Traditional_Method/results
