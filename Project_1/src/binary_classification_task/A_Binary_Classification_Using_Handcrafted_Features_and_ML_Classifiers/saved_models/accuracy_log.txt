@@ -1,0 +1,4 @@
+SVM: 0.9387
+MLP: 0.9325
+XGBoost: 0.9264
+RandomForest: 0.9006

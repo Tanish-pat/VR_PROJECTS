@@ -24,12 +24,14 @@ __pycache__/
 Project_1/dataset/MSFD
 Project_1/dataset/with_mask
 Project_1/dataset/without_mask
-Project_1/src/task1
-Project_1/src/task2
-Project_1/src/binary_classification_task/testing_features/X.npy
-Project_1/src/binary_classification_task/testing_features/y.npy
-Project_1/src/binary_classification_task/enhanced_features/X.npy
-Project_1/src/binary_classification_task/enhanced_features/y.npy
+Project_1/src/binary_classification_task/A_Binary_Classification_Using_Handcrafted_Features_and_ML_Classifiers/enhanced_features
+
+Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/Advanced_Analysis/snapshots
+
+Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/Normal_Analysis/cnn_processed_data/X.npy
+Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/Normal_Analysis/cnn_processed_data/y.npy
+
+
 
 Mask_Segmentation_C/MSFD
 Mask_Segmentation_C/.DS_Store
