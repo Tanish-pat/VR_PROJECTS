@@ -8,14 +8,17 @@ Here is the detailed README in Markdown format:
 **Table of Contents**
 -----------------
 
-* [Overview](#overview)
-* [Requirements](#requirements)
-* [Usage](#usage)
-	+ [Running the Script](#running-the-script)
-	+ [Parser Options](#parser-options)
-* [Dataset](#dataset)
-* [Output](#output)
-* [Notes](#notes)
+- [**Mask Segmentation Evaluation**](#mask-segmentation-evaluation)
+  - [**Table of Contents**](#table-of-contents)
+  - [**Overview**](#overview)
+  - [**Requirements**](#requirements)
+  - [**Usage**](#usage)
+    - [Running the Script](#running-the-script)
+    - [Parser Options](#parser-options)
+  - [**Dataset**](#dataset)
+  - [**Output**](#output)
+  - [**Notes**](#notes)
+  - [**Troubleshooting**](#troubleshooting)
 
 **Overview**
 ------------
@@ -57,7 +60,7 @@ The script uses the `argparse` library to parse command-line arguments. The foll
 
 Example usage:
 ```bash
-python main.py --mode sample --num 100 --visualize 50 
+python main.py --mode sample --num 100 --visualize 50
 ```
 This will process a random sample of 100 images, visualize the results for 50 images, and use a random seed of 123.
 
