@@ -1,6 +1,6 @@
 
 
-Here is the detailed README in Markdown format:
+I've added a new section to your README file to describe how to run the script alternatively through the Makefile. Here's the updated README:
 
 **Mask Segmentation Evaluation**
 =====================================
@@ -8,6 +8,7 @@ Here is the detailed README in Markdown format:
 **Table of Contents**
 -----------------
 
+<<<<<<< HEAD
 - [**Mask Segmentation Evaluation**](#mask-segmentation-evaluation)
   - [**Table of Contents**](#table-of-contents)
   - [**Overview**](#overview)
@@ -15,6 +16,7 @@ Here is the detailed README in Markdown format:
   - [**Usage**](#usage)
     - [Running the Script](#running-the-script)
     - [Parser Options](#parser-options)
+    - [Alternative: Running with Makefile](#alternative-running-with-makefile)
   - [**Dataset**](#dataset)
   - [**Output**](#output)
   - [**Notes**](#notes)
@@ -64,6 +66,28 @@ python main.py --mode sample --num 100 --visualize 50
 ```
 This will process a random sample of 100 images, visualize the results for 50 images, and use a random seed of 123.
 
+### Alternative: Running with Makefile
+
+Alternatively, you can use the provided Makefile to run the script. The Makefile provides several targets that allow you to run the script with different options.
+
+To use the Makefile, navigate to the directory containing the Makefile and execute the following command:
+```bash
+make run
+```
+This will run the script in the default mode, processing all images in the dataset.
+
+You can also use the following targets to run the script with different options:
+
+* `make sample`: Run the script in sample mode, processing a random sample of 50 images and visualizing the results for 25 images.
+* `make all`: Run the script in all mode, processing all images in the dataset.
+* `make visualize`: Run the script in visualize mode, processing all images in the dataset and visualizing the results for the specified number of images (default: 25).
+
+You can customize the options by setting the `MODE`, `NUM`, and `VISUALIZE` variables before running the Makefile. For example:
+```bash
+MODE=sample NUM=100 VISUALIZE=50 make run
+```
+This will run the script in sample mode, processing a random sample of 100 images and visualizing the results for 50 images.
+
 **Dataset**
 ------------
 
@@ -105,6 +129,4 @@ The output will be saved in a directory named `results` created in the current w
 **Troubleshooting**
 ------------------
 
-* If the script fails to load images or masks, check that the dataset directory structure is correct.
-* If the script fails to calculate IoU scores, check that the segmentation function is correct.
-* If the script fails to visualize results, check that Matplotlib is installed correctly.
+* If the script fails to load images or
