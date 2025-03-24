@@ -28,3 +28,9 @@ Project_1/src/binary_classification_task/A_Binary Classification Using Handcraft
 Project_1/src/binary_classification_task/A_Binary Classification Using Handcrafted Features and ML Classifiers/saved_models
 Project_1/src/binary_classification_task/B_Binary Classification Using CNN/cnn_models
 Project_1/src/binary_classification_task/B_Binary Classification Using CNN/cnn_processed_data
+
+Mask_Segmentation_C/MSFD
+Mask_Segmentation_C/.DS_Store
+Mask_Segmentation_C/results
+Mask_Segmentation_C/final.py
+Mask_Segmentation_C/Graded_VR Mini Project 1.pdf
