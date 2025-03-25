@@ -75,5 +75,3 @@ Your README must serve as a **detailed project report** and include:
 7️⃣ **How to Run the Code**
    - Provide step-by-step instructions to execute the scripts.
 
-⚠ **Ensure that your code runs smoothly without requiring manual intervention and that all outputs are clearly labeled.**
----

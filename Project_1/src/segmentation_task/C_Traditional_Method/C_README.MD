@@ -42,6 +42,11 @@ The script is designed to be flexible and can be used to evaluate different mask
 ### Running the Script
 
 To run the script, navigate to the directory containing `main.py` and execute the following command:
+
+```bash
+cd Project_1/src/Segmentation_Task/C_Traditional_Method
+```
+
 ```bash
 python main.py
 ```
