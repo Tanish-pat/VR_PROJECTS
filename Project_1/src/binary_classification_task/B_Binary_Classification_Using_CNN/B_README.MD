@@ -266,6 +266,7 @@ Stored in `snapshots/plots/` as:
 | ResNet-like | MobileNet |
 |------------|---------|
 | ![ResNet-like](/Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/Advanced_Analysis/snapshots/plots/resnet_like.png) | ![MobileNet](/Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/Advanced_Analysis/snapshots/plots/mobilenet.png) |
+
 These plots reveal:
 
 ✅ **Baseline CNN maintained strong performance** throughout training.

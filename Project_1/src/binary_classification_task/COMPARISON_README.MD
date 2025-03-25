@@ -1,7 +1,23 @@
 # **Comparative Analysis: Traditional Machine Learning vs. CNN-Based Mask Detection**
 
 This document presents a **comprehensive comparison** of the accuracy achieved by different models in both **Part A (Traditional ML Models)** and **Part B (CNN-Based Deep Learning Models)** for the **mask detection task**. We analyze the **best-performing models**, **hyperparameters**, and key insights that explain the differences in performance.
+## **🚀 Steps to Run**
 
+You can run any of the following Python files and Jupyter notebooks in Part A and Part B:
+
+### **Part A:**
+- **Python Files:**
+  - `feature_extraction.py`
+  - `Colab_USAGE_ML.ipynb` (to be run in Colab for training)
+  - `main.ipynb` (to evaluate models)
+
+### **Part B:**
+- **Python Files:**
+  - `Colab_USAGE_CNN.ipynb` (to be run in Colab for training larger models)
+  - `main.ipynb` (to evaluate models)
+
+### **Important Note:**
+Do not run the Colab files locally; they are designed for execution in the Google Colab environment, which provides the necessary GPU resources and library configurations.
 ---
 
 ## 📌 **Table of Contents**
