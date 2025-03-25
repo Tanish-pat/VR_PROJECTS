@@ -5,20 +5,6 @@ Here is the detailed README in Markdown format:
 **Mask Segmentation Evaluation**
 =====================================
 
-**Table of Contents**
------------------
-
-- [**Mask Segmentation Evaluation**](#mask-segmentation-evaluation)
-  - [**Table of Contents**](#table-of-contents)
-  - [**Overview**](#overview)
-  - [**Requirements**](#requirements)
-  - [**Usage**](#usage)
-    - [Running the Script](#running-the-script)
-    - [Parser Options](#parser-options)
-  - [**Dataset**](#dataset)
-  - [**Output**](#output)
-  - [**Notes**](#notes)
-  - [**Troubleshooting**](#troubleshooting)
 
 **Overview**
 ------------
@@ -35,6 +21,22 @@ The script is designed to be flexible and can be used to evaluate different mask
 * scikit-learn 0.24+
 * NumPy 1.20+
 * Matplotlib 3.4+
+* tqdm (progress bar)
+* argparse (command-line interface)
+
+
+---
+
+## Directory Structure
+
+```
+MSFD/
+├── 1/
+    ├── face_crop/               # Input images
+    └── face_crop_segmentation/  # Ground truth masks
+```
+
+---
 
 **Usage**
 -----
@@ -69,47 +71,205 @@ python main.py --mode sample --num 100 --visualize 50
 ```
 This will process a random sample of 100 images, visualize the results for 50 images, and use a random seed of 123.
 
-**Dataset**
-------------
 
-The script assumes that the dataset is stored in a directory named `MSFD` containing subdirectories for images and masks. The directory structure should be as follows:
-```bash
-MSFD/
-images/
-image1.jpg
-image2.jpg
-...
-masks/
-mask1.png
-mask2.png
-...
+Below is the Markdown version of your LaTeX document:
+ 
+---
+
+## Output Metrics
+
+The system evaluates segmentation performance using three main types of assessments:
+
+### Per-image IoU Scores
+
+- The Intersection over Union (IoU) metric is computed for each image, comparing:
+  - The base segmentation mask (e.g., initial model output).
+  - The refined segmentation mask generated using the GrabCut algorithm.
+- IoU scores are stored for each image, providing a fine-grained comparison of segmentation quality.
+- These scores allow for per-image analysis of segmentation improvement.
+
+### Aggregate Statistics
+
+- **Average IoU Scores:** Mean IoU values for both base and GrabCut-refined masks, indicating overall segmentation accuracy.
+- **Improvement Percentage:** The relative increase in IoU after refinement, computed as:
+
+  $$
+  \text{Improvement (\%)} = \frac{\text{IoU (GrabCut)} - \text{IoU (Base)}}{\text{IoU (Base)}} \times 100
+  $$
+
+### Visualizations
+
+- **Mask Comparison Images:** Overlays of base and GrabCut-refined masks on the original images, highlighting differences.
+- **IoU Distribution Histograms:** Frequency distribution of IoU scores to observe performance trends.
+- **Bar Chart Comparing Average Scores:** Side-by-side visualization of mean IoU scores for base and GrabCut masks.
+- **Scatter Plots:** IoU improvements per image, helping identify cases where refinement was most effective.
+- **Box Plots:** Showcasing IoU score distributions, outliers, and median values for both methods.
+
+These evaluations collectively provide a comprehensive understanding of segmentation effectiveness and improvements introduced by the GrabCut refinement process.
+
+---
+
+## Results Directory Structure
+
 ```
-The script will load images and masks from these directories and apply mask segmentation.
+results/
+├── mask_comparison_*.png  # Visual comparisons
+├── iou_comparison.png      # Bar chart
+├── iou_distribution.png    # Histogram
+└── evaluation_summary.txt  # Aggregate metrics
+```
 
-**Output**
-----------
+---
 
-The script will output the following:
+## Key Implementation Details
 
-* IoU scores for each image
-* Average IoU score for all images
-* Visualization of the results for the specified number of images (if `--visualize` option is used)
+- Color space transformations between RGB, HSV, and grayscale.
+- Morphological operations using an elliptical kernel.
+- Contour analysis based on area thresholds.
+- Parallel processing of multiple segmentation techniques.
+- Memory-efficient image processing with OpenCV.
 
-The output will be saved in a directory named `results` created in the current working directory.
+---
 
-**Notes**
--------
+## Methodology Evolution
 
-* The script assumes that the images and masks are stored in the same directory structure as the dataset.
-* The script uses the `jaccard_score` function from scikit-learn to calculate IoU scores.
-* The script uses OpenCV to load and process images.
-* The script uses Matplotlib to visualize the results.
-* The script uses NumPy to perform numerical computations.
-* The script uses Python's built-in `random` module to generate random numbers.
+This section details the experimental approaches considered during development, their limitations, and why the final combination of base mask creation with GrabCut refinement was selected.
 
-**Troubleshooting**
-------------------
+### Previous Approaches and Limitations
 
-* If the script fails to load images or masks, check that the dataset directory structure is correct.
-* If the script fails to calculate IoU scores, check that the segmentation function is correct.
-* If the script fails to visualize results, check that Matplotlib is installed correctly.
+#### Color-Based Mask Segmentation
+
+- **Implementation:** Uses HSV thresholding to detect blue and white regions in the image. Earlier, multiple color threshold ranges were provided, but it worked well only with one particular range.
+- **Issues:** Failed with:
+  - Variations in lighting conditions (shadows, overexposure affecting HSV values).
+  - Masks with non-standard colors or patterns.
+  - Over-segmentation of background regions with similar colors.
+- **Example:**
+
+  ![Color-Based Mask Example 1](Images/Color-based-mask/Screenshot%202025-03-25%20at%2008.43.43.png)
+
+  ![Color-Based Mask Example 2](Images/Color-based-mask/Screenshot%202025-03-25%20at%2008.43.31.png)
+
+  ![Color-Based Mask Example 3](Images/Color-based-mask/Screenshot%202025-03-25%20at%2008.43.18.png)
+
+#### Pure Edge Detection (Canny)
+
+- **Implementation:** Edge detection without spatial constraints.
+- **Issues:**
+  - **Incomplete Mask Boundaries:** Edge detection primarily highlights the contours, but some mask edges may be weak or fragmented, leading to incomplete segmentation.
+  - **Noise from Non-Mask Elements:** Other facial features or textures (e.g., folds in the mask) may also be detected as edges, introducing unwanted noise.
+  - **Loss of Interior Information:** Unlike segmentation, edge detection does not capture the full mask region, making it difficult to distinguish the mask from the background accurately.
+- **Example:**
+
+  ![Edge Detection Example 1](Images/Edge/Screenshot%202025-03-25%20at%2008.24.18.png)  
+  *Edge Detection*
+
+  ![Edge Detection Example 2](Images/Edge/Screenshot%202025-03-25%20at%2008.24.28.png)  
+  *Edge Detection*
+
+#### Advanced Mask Segmentation
+
+- **Implementation:** Multi-stage segmentation using LAB and HSV color spaces, edge refinement, and watershed-based boundary correction.
+- **Steps:**
+  - **Adaptive Color Segmentation:** Uses LAB space thresholding and HSV-based skin tone exclusion for better mask isolation.
+  - **Edge Refinement:** Multi-scale Canny edge detection combined with morphological operations to enhance object boundaries.
+  - **Watershed Refinement:** Uses distance transform and marker-based watershed algorithm for fine boundary segmentation.
+  - **Final Contour Validation:** Filters out small, irrelevant regions and applies morphological cleanup for a smoother mask.
+- **Issues:**
+  - Sensitive to complex lighting conditions and shadows.
+  - May struggle with masks that closely match skin tones.
+  - Watershed segmentation can introduce small noise regions in low-contrast areas.
+- **Example:** Transparent or patterned masks may not be segmented accurately due to irregular textures.
+
+### Rationale for Current Methodology
+
+The final approach combines multiple techniques to overcome individual limitations.
+
+---
+
+## Methodology
+
+Our approach follows a two-stage process:
+
+1. **Base Mask Generation:** A combination of color-based filtering, edge detection, and dominant color clustering to segment facial masks.
+2. **Refinement Using GrabCut:** An iterative graph-cut algorithm to refine the mask obtained in the first step.
+
+### Base Mask Generation
+
+The first stage aims to create an initial segmentation mask that captures potential face masks in the image. This is achieved through a combination of techniques:
+
+#### Color-Based Filtering
+
+Face masks often exhibit distinct colors such as blue (surgical masks), white (N95 masks), black, gray, and brown (cloth masks). We use HSV color space thresholding to isolate these colors:
+
+- **Blue Masks:** HSV range `[90, 50, 50]` to `[130, 255, 255]`
+- **White Masks:** HSV range `[0, 0, 200]` to `[180, 30, 255]`
+- **Black Masks:** HSV range `[0, 0, 0]` to `[180, 50, 50]`
+- **Gray Masks:** HSV range `[0, 0, 70]` to `[180, 30, 140]`
+- **Brown Masks:** HSV range `[10, 30, 60]` to `[30, 120, 150]`
+
+A bitwise OR operation is applied to merge the masks from different color channels.
+
+#### Edge Detection with Canny
+
+Since masks have well-defined edges, we apply Canny edge detection on the grayscale image. A Gaussian blur is applied before edge detection to reduce noise. The detected edges are then dilated to enhance connectivity.
+
+#### Dominant Color Clustering
+
+Since color thresholding alone may miss some masks, we apply K-means clustering on the lower half of the image (where masks are likely to appear). We identify the most dominant color cluster and create a binary mask from it.
+
+#### Region of Interest (ROI)
+
+To avoid false positives, we restrict the analysis to the lower half of the image, where face masks are more likely to be present.
+
+#### Mask Combination and Morphological Processing
+
+The outputs from color filtering, edge detection, and clustering are combined. Morphological operations (closing and opening) are applied to remove noise and refine the mask. Finally, the largest connected component is selected as the probable face mask region.
+
+### Refinement with GrabCut
+
+GrabCut is a semi-supervised segmentation method based on graph cuts. It refines the base mask by distinguishing foreground (mask) from background (non-mask).
+
+- The base mask is used to initialize the GrabCut algorithm.
+- Pixels marked as 255 in the base mask are set as probable foreground, while others are considered probable background.
+- Iterative optimization is performed for 5 iterations.
+- The output mask is restricted to the lower half of the image to remove noise.
+
+---
+
+## Results and Performance
+
+We tested this approach on 50 randomly selected images and achieved an IoU score of approximately 0.6–0.7, indicating reasonable segmentation accuracy. The combined method benefits from the robustness of heuristic-based masking and the refinement capabilities of GrabCut.
+
+---
+
+## Conclusion
+
+This study explored a hybrid approach for face mask detection using a combination of heuristic-based segmentation and refinement through GrabCut. The first method provides a strong initial estimate, while the second improves accuracy. Future work may involve training a deep learning model using this approach as an initial mask generator.
+
+---
+
+## Examples
+
+Below are some comparison images of masks using the best method:
+
+![Mask Comparison 23](Images/Best_Method/mask_comparison_23.png)  
+![Mask Comparison 31](Images/Best_Method/mask_comparison_31.png)  
+![Mask Comparison 34](Images/Best_Method/mask_comparison_34.png)  
+![Mask Comparison 38-1](Images/Best_Method/mask_comparison_38-1.png)  
+![Mask Comparison 46](Images/Best_Method/mask_comparison_46.png)  
+![Mask Comparison 47](Images/Best_Method/mask_comparison_47.png)
+
+---
+
+## Results
+
+For a random sample of 50 images from the dataset:
+
+![IoU Comparison](Images/Results/iou_comparison.png)
+
+![IoU Distribution](Images/Results/iou_distribution.png)
+
+--- 
+
+This Markdown file preserves the structure and details from the original LaTeX document.
