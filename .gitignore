@@ -41,5 +41,5 @@ Mask_Segmentation_C/Graded_VR Mini Project 1.pdf
 
 Project_1/src/binary_classification_task/segmentation_task/D_UNET_method/.ipynb_checkpoints
 *.ipynb_checkpoints
-*.pth
+# *.pth
 *.jpg
