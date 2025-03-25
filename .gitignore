@@ -38,3 +38,8 @@ Mask_Segmentation_C/.DS_Store
 Mask_Segmentation_C/results
 Mask_Segmentation_C/final.py
 Mask_Segmentation_C/Graded_VR Mini Project 1.pdf
+
+Project_1/src/binary_classification_task/segmentation_task/D_UNET_method/.ipynb_checkpoints
+*.ipynb_checkpoints
+*.pth
+*.jpg
