@@ -14,7 +14,8 @@ You can find the complete project documentation at the following link (PDF):
 ### Part B: Binary Classification Using CNN
 - Documentation (PDF): [Binary Classification with CNN](https://github.com/Tanish-pat/VR_PROJECTS/tree/main/Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/docs)
 - README: [Part B README](https://github.com/Tanish-pat/VR_PROJECTS/blob/main/Project_1/src/binary_classification_task/B_Binary_Classification_Using_CNN/B_README.MD)
-
+- **Comparison with Part B**: [Comparison of Part A and Part B](https://github.com/Tanish-pat/VR_PROJECTS/blob/main/Project_1/src/binary_classification_task/COMPARISON_README.MD)
+  
 ## 🎨 Segmentation Task
 ### Part C: Traditional Method
 - Documentation (PDF): [Segmentation Using Traditional Methods](https://github.com/Tanish-pat/VR_PROJECTS/tree/main/Project_1/src/segmentation_task/C_Traditional_Method)
